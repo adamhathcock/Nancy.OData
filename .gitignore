@@ -1,0 +1,6 @@
+Nancy.OData.Test/bin/
+Nancy.OData.Test/obj/
+*.suo
+Nancy.OData/bin/
+Nancy.OData/obj/
+packages/
