@@ -7,7 +7,7 @@ namespace Nancy.OData.Test
         public TestModule()
             : base("/")
         {
-            Get["/Test"] = x =>
+            Get["/Test/{stuff}/"] = x =>
             {
                 return Response.AsOData(new List<Stuff> {
                 new Stuff {             Name = "one" }, 

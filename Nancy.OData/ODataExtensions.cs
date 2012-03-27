@@ -8,15 +8,23 @@ namespace Nancy.OData
 {
     public static class ODataExtensions
     {
-        public static IEnumerable<object> ODataFilter<T>(this NancyContext context, IEnumerable<T> modelItems)
+        private const string ODATA_URI_KEY = "OData_Uri";
+
+        private static NameValueCollection ParseUriOptions(NancyContext context)
         {
+            object item;
+            if (context.Items.TryGetValue(ODATA_URI_KEY, out item))
+            {
+                return item as NameValueCollection;
+            }
+            NameValueCollection nv;
             var queryString = context.Request.Url.Query;
             if (!queryString.StartsWith("?"))
             {
                 throw new InvalidOperationException("Invalid OData query string " + queryString);
             }
             var parameters = queryString.Substring(1).Split('&', '=');
-            var nv = new NameValueCollection();
+            nv = new NameValueCollection();
             if (parameters.Length % 2 != 0)
             {
                 throw new InvalidOperationException("Invalid OData query string " + queryString);
@@ -25,6 +33,12 @@ namespace Nancy.OData
             {
                 nv.Add(parameters[i], parameters[i + 1]);
             }
+            context.Items.Add(ODATA_URI_KEY, nv);
+            return nv;
+        }
+        public static IEnumerable<object> ApplyODataUriFilter<T>(this NancyContext context, IEnumerable<T> modelItems)
+        {
+            var nv = ParseUriOptions(context);
 
             var parser = new ParameterParser<T>();
             var filter = parser.Parse(nv);
@@ -34,11 +48,19 @@ namespace Nancy.OData
         public static Response AsOData<T>(this IResponseFormatter formatter, IEnumerable<T> modelItems, HttpStatusCode code = HttpStatusCode.OK)
         {
             bool isJson = formatter.Context.Request.Headers.Accept.Select(x => x.Item1).Where(x => x.StartsWith("application/json", StringComparison.InvariantCultureIgnoreCase)).Any();
+
+            var nv = ParseUriOptions(formatter.Context);
+            string value = nv.Get("$format");
+            if (string.Compare(value, "json", true) == 0)
+            {
+                isJson = true;
+            }
+
             if (isJson)
             {
-                return formatter.AsJson(formatter.Context.ODataFilter(modelItems), code);
+                return formatter.AsJson(formatter.Context.ApplyODataUriFilter(modelItems), code);
             }
-            return formatter.AsXml(formatter.Context.ODataFilter(modelItems));
+            throw new NotImplementedException("Atom feeds not implemented");
         }
     }
 }
