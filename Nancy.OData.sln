@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 11
+# Visual Web Developer Express 11
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nancy.OData", "Nancy.OData\Nancy.OData.csproj", "{630AB0D8-214B-4622-A8BD-9FD96C8B934D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nancy.OData.Test", "Nancy.OData.Test\Nancy.OData.Test.csproj", "{A30B6612-C858-4D65-A730-BEB09AEF42D2}"
