@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <version>1.0.0</version>
+    <authors>Adam Hathcock</authors>
+    <owners />
+    <projectUrl>https://github.com/adamhathcock/Nancy.OData</projectUrl>
+    <dependencies>
+      <dependency id="Nancy" version="0.10.0" />
+      <dependency id="Linq2Rest" version="2.1.0.0" />
+    </dependencies>
+    <id>Nancy.OData</id>
+    <title />
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Adding the OData URL conventions to Nancy.</description>
+  </metadata>
+  <files>
+    <file src="Nancy.OData\Nancy.OData\bin\Release\Nancy.OData.dll" target="lib\net40\Nancy.OData.dll" />
+  </files>
+</package>
