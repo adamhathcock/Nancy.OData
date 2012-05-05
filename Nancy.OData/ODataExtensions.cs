@@ -31,7 +31,7 @@ namespace Nancy.OData
             }
             for (int i = 0; i < parameters.Length; i += 2)
             {
-                nv.Add(parameters[i], parameters[i + 1]);
+                nv.Add(parameters[i], Uri.UnescapeDataString(parameters[i + 1]));
             }
             context.Items.Add(ODATA_URI_KEY, nv);
             return nv;

@@ -10,9 +10,9 @@ namespace Nancy.OData.Test
             Get["/Test/{stuff}/"] = x =>
             {
                 return Response.AsOData(new List<Stuff> {
-                new Stuff {             Name = "one" }, 
-                     new Stuff { Name = "two" }, 
-                        new Stuff { Name = "Three"}
+                new Stuff {Id = 1, Name = "one" }, 
+                     new Stuff {Id = 2, Name = "two" }, 
+                        new Stuff {Id = 3, Name = "Three"}
                 });
             };
         }
@@ -20,6 +20,7 @@ namespace Nancy.OData.Test
 
     public class Stuff
     {
+        public int Id { get; set; }
         public string Name { get; set; }
     }
 }
