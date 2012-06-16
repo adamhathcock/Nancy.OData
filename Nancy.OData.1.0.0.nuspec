@@ -15,6 +15,6 @@
     <description>Adding the OData URL conventions to Nancy.</description>
   </metadata>
   <files>
-    <file src="Nancy.OData\Nancy.OData\bin\Release\Nancy.OData.dll" target="lib\net40\Nancy.OData.dll" />
+    <file src="Nancy.OData\bin\Release\Nancy.OData.dll" target="lib\net40\Nancy.OData.dll" />
   </files>
 </package>
