@@ -4,3 +4,4 @@ Nancy.OData.Test/obj/
 Nancy.OData/bin/
 Nancy.OData/obj/
 packages/
+*.nupkg

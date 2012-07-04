@@ -17,14 +17,18 @@ namespace Nancy.OData
             {
                 return item as NameValueCollection;
             }
-            NameValueCollection nv;
+            NameValueCollection nv = new NameValueCollection();
+            context.Items.Add(ODATA_URI_KEY, nv);
             var queryString = context.Request.Url.Query;
+            if (string.IsNullOrWhiteSpace(queryString))
+            {
+                return nv;
+            }
             if (!queryString.StartsWith("?"))
             {
                 throw new InvalidOperationException("Invalid OData query string " + queryString);
             }
             var parameters = queryString.Substring(1).Split('&', '=');
-            nv = new NameValueCollection();
             if (parameters.Length % 2 != 0)
             {
                 throw new InvalidOperationException("Invalid OData query string " + queryString);
@@ -33,7 +37,6 @@ namespace Nancy.OData
             {
                 nv.Add(parameters[i], Uri.UnescapeDataString(parameters[i + 1]));
             }
-            context.Items.Add(ODATA_URI_KEY, nv);
             return nv;
         }
         public static IEnumerable<object> ApplyODataUriFilter<T>(this NancyContext context, IEnumerable<T> modelItems)
