@@ -5,3 +5,4 @@ Nancy.OData/bin/
 Nancy.OData/obj/
 packages/
 *.nupkg
+_ReSharper.Nancy.OData/
