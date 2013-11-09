@@ -50,11 +50,11 @@ namespace Nancy.OData
 
         public static Response AsOData<T>(this IResponseFormatter formatter, IEnumerable<T> modelItems, HttpStatusCode code = HttpStatusCode.OK)
         {
-            bool isJson = formatter.Context.Request.Headers.Accept.Select(x => x.Item1).Where(x => x.StartsWith("application/json", StringComparison.InvariantCultureIgnoreCase)).Any();
+            bool isJson = formatter.Context.Request.Headers.Accept.Select(x => x.Item1).Any(x => x.StartsWith("application/json", StringComparison.InvariantCultureIgnoreCase));
 
             var nv = ParseUriOptions(formatter.Context);
             string value = nv.Get("$format");
-            if (string.Compare(value, "json", true) == 0)
+            if ( "json".Equals(value, StringComparison.OrdinalIgnoreCase))
             {
                 isJson = true;
             }
